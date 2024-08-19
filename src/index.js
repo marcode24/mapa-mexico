@@ -1,8 +1,12 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
+const d = document;
+
 // Inicializa el mapa y establece la vista en el centro de México.
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  const estados = await loadEstados();
+
   const map = L.map("map").setView([23.6345, -102.5528], 5);
 
   // Establece los límites de visualización en el área de México
@@ -54,15 +58,16 @@ document.addEventListener("DOMContentLoaded", () => {
     layer.on({
       mouseover: highlightFeature,
       mouseout: resetHighlight,
-      click: (e) => {
-        alert("Estado: " + feature.properties.name);
+      click: async (e) => {
+        const data = await loadEstado(feature.properties.id);
+        buildDataEstado(data, feature.properties.name);
       },
     });
   }
 
   let geojson;
   // Cargar GeoJSON de los estados de México
-  fetch("/data/estados.json")
+  fetch("/data/estadosSetupLeaflet.json")
     .then((response) => response.json())
     .then((data) => {
       geojson = L.geoJson(data, {
@@ -71,3 +76,47 @@ document.addEventListener("DOMContentLoaded", () => {
       }).addTo(map);
     });
 });
+
+const loadEstados = async () => {
+  const response = await fetch("/data/estados.json");
+  const data = await response.json();
+  return data;
+};
+
+const loadEstado = async (id) => {
+  const response = await fetch(`/data/${id}/main.json`);
+  const data = await response.json();
+  return data;
+};
+
+const buildDataEstado = (data, estadoNombre) => {
+  d.querySelector(".no-content").style.display = "none";
+  const { items } = data;
+  const totalItemsText = `${items.length} ${
+    items.length === 1 ? "items" : "items"
+  }`;
+  let result = "";
+
+  result += `
+    <div class="title">
+      <h2>${estadoNombre}</h2>
+      <span class="badge badge-primary">${totalItemsText}</span>
+    </div>
+  `;
+
+  result += `
+    <div class="scrollable">
+      <ul class="items">`;
+  items.forEach((item) => {
+    const { title, link } = item;
+    result += `<li>
+      <p>${title}</p>
+      <a class="btn-more">Ver contenido</a>
+    </li>`;
+  });
+  result += `</ul>
+    </div>`;
+  d.querySelector(".content").innerHTML = result;
+};
+
+const openModal = (item) => {};
