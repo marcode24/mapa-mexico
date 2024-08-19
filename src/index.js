@@ -93,7 +93,7 @@ const buildDataEstado = (data, estadoNombre) => {
   d.querySelector(".no-content").style.display = "none";
   const { items } = data;
   const totalItemsText = `${items.length} ${
-    items.length === 1 ? "items" : "items"
+    items.length === 1 ? "item" : "items"
   }`;
   let result = "";
 
@@ -108,15 +108,66 @@ const buildDataEstado = (data, estadoNombre) => {
     <div class="scrollable">
       <ul class="items">`;
   items.forEach((item) => {
-    const { title, link } = item;
-    result += `<li>
+    const { title, link, id } = item;
+    result += `
+    <li class="btn-more" data-id="${id}">
       <p>${title}</p>
-      <a class="btn-more">Ver contenido</a>
     </li>`;
   });
   result += `</ul>
     </div>`;
   d.querySelector(".content").innerHTML = result;
+  d.querySelectorAll(".btn-more").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const id = e.target.getAttribute("data-id");
+      const item = items.find((item) => item.id === id);
+      openModal(item);
+    });
+  });
 };
 
-const openModal = (item) => {};
+const openModal = (item) => {
+  d.querySelector(".modal")?.remove();
+
+  const { title, image, description } = item;
+  const result = `
+   <div class="modal dialog">
+      <div class="modal-content">
+        <div class="header">
+          <span class="title">${title}</span>
+          <div class="i-wrapper">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              style="fill: rgba(0, 0, 0, 1)"
+            >
+              <path
+                d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+        <div class="body">
+          <div class="estado-content">
+            <img
+              src="${image}"
+              alt="${title}"
+              loading="lazy"
+            />
+            <p class="description">${description}</p>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  d.body.insertAdjacentHTML("beforeend", result);
+
+  d.querySelector(".modal").classList.add("modal-open");
+  d.querySelector(".i-wrapper").addEventListener("click", (e) => closeModal());
+};
+
+const closeModal = () => {
+  d.querySelector(".modal").classList.remove("modal-open");
+};

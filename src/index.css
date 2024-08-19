@@ -101,13 +101,19 @@ ul.items li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1rem 1rem 0;
+  padding: 1rem;
   border-bottom: 1px solid #ccc;
+  transition: 0.3s ease;
 }
 
+ul.items li:last-child {
+  border-bottom: none;
+}
 
-
-
+ul.items li:hover {
+  background: #f1f1f1;
+  cursor: pointer;
+}
 
 .modal {
   z-index: 99999;
@@ -134,21 +140,49 @@ ul.items li {
   border-radius: 1rem;
   max-width: 40rem;
   background-color: #FEFEFE;
-  padding: 1rem;
-  gap: 1.2rem;
   width: 75%;
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+  }
+}
+
+.modal-content .body {
+  padding: 0 1.4rem 1rem 1.4rem;  
+  overflow-y: auto;
+}
+
+.modal-content .body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-content .body::-webkit-scrollbar-thumb {
+  background-color: #337ab7;
+  border-radius: 10px;
+}
+
+.modal-content .body::-webkit-scrollbar-track {
+  background-color:inherit;
+  border-radius: 10px;
 }
 
 .modal-content .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem 1.4rem;
+  background:  inherit;
+  border-radius: 1rem 1rem 0 0;
 }
 
 .modal-content .header .title {
-  font-size: 1.5rem; /* Asegúrate de definir el tamaño de fuente y el grosor */
+  font-size: 1.5rem;
   font-weight: 600;
-  color: var(--fc-primary);
+  color: #333;
 }
 
 .modal-content .header .i-wrapper {
@@ -158,10 +192,12 @@ ul.items li {
   color: var(--fc-purple);
   transition: 0.5s;
   border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
 }
 
 .modal-content .header .i-wrapper:hover {
-  background: var(--bg-sidebar);
+  background: #f1f1f1;
   cursor: pointer;
 }
 
@@ -183,4 +219,26 @@ ul.items li {
   flex-wrap: wrap;
 }
 
+.estado-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.estado-content img {
+  width: 100%;
+  border-radius: 5px;
+  object-fit: cover;
+  height: 300px;
+}
+
+.estado-content .title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+.estado-content .description {
+  font-size: 1rem;
+  color: #333;
+}
 
