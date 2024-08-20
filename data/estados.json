@@ -1,0 +1,208 @@
+{
+  "estados": [
+    {
+      "id": "MX-ZAC",
+      "image": "zacatecas.jpg",
+      "name": "Zacatecas",
+      "description": "Zacatecas es un estado de México, situado en la región centro-norte del país. Su capital es la ciudad de Zacatecas. Limita al norte con Coahuila y Nuevo León, al noreste con San Luis Potosí, al este con Aguascalientes, al sur con Jalisco y al oeste con Nayarit, Durango y Coahuila. Tiene una extensión territorial de 75,040 km²."
+    },
+    {
+      "id": "MX-YUC",
+      "image": "",
+      "name": "Yucatán",
+      "description": ""
+    },
+    {
+      "id": "MX-VER",
+      "image": "",
+      "name": "Veracruz",
+      "description": ""
+    },    
+    {
+      "id": "MX-TLA",
+      "image": "",
+      "name": "Tlaxcala",
+      "description": ""
+    },    
+    {
+      "id": "MX-TAM",
+      "image": "",
+      "name": "Tamaulipas",
+      "description": ""
+    },    
+    {
+      "id": "MX-TAB",
+      "image": "",
+      "name": "Tabasco",
+      "description": ""
+    },    
+    {
+      "id": "MX-SON",
+      "image": "",
+      "name": "Sonora",
+      "description": ""
+    },    
+    {
+      "id": "MX-SIN",
+      "image": "",
+      "name": "Sinaloa",
+      "description": ""
+    },    
+    {
+      "id": "MX-SLP",
+      "image": "",
+      "name": "San Luis Potosí",
+      "description": ""
+    },    
+    {
+      "id": "MX-ROO",
+      "image": "",
+      "name": "Quintana Roo",
+      "description": ""
+    },    
+    {
+      "id": "MX-QUE",
+      "image": "",
+      "name": "Querétaro",
+      "description": ""
+    },    
+    {
+      "id": "MX-PUE",
+      "image": "",
+      "name": "Puebla",
+      "description": ""
+    },    
+    {
+      "id": "MX-TAM",
+      "image": "",
+      "name": "Tamaulipas",
+      "description": ""
+    },    
+    {
+      "id": "MX-OAX",
+      "image": "",
+      "name": "Oaxaca",
+      "description": ""
+    },    
+    {
+      "id": "MX-NLE",
+      "image": "",
+      "name": "Nuevo León",
+      "description": ""
+    },    
+    {
+      "id": "MX-NAY",
+      "image": "",
+      "name": "Nayarit",
+      "description": ""
+    },    
+    {
+      "id": "MX-MOR",
+      "image": "",
+      "name": "Morelos",
+      "description": ""
+    },    
+    {
+      "id": "MX-MIC",
+      "image": "",
+      "name": "MIchoacán",
+      "description": ""
+    },    
+    {
+      "id": "MX-MEX",
+      "image": "",
+      "name": "México",
+      "description": ""
+    },    
+    {
+      "id": "MX-JAL",
+      "image": "",
+      "name": "Jalisco",
+      "description": ""
+    },    
+    {
+      "id": "MX-HID",
+      "image": "",
+      "name": "Hidalgo",
+      "description": ""
+    },    
+    {
+      "id": "MX-GRO",
+      "image": "",
+      "name": "Guerrero",
+      "description": ""
+    },    
+    {
+      "id": "MX-TAM",
+      "image": "",
+      "name": "Tamaulipas",
+      "description": ""
+    },    
+    {
+      "id": "MX-GUA",
+      "image": "",
+      "name": "Guanajuato",
+      "description": ""
+    },    
+    {
+      "id": "MX-DUR",
+      "image": "",
+      "name": "Durango",
+      "description": ""
+    },    
+    {
+      "id": "MX-CMX",
+      "image": "",
+      "name": "Ciudad de México",
+      "description": ""
+    },    
+    {
+      "id": "MX-COL",
+      "image": "",
+      "name": "Colima",
+      "description": ""
+    },    
+    {
+      "id": "MX-COA",
+      "image": "",
+      "name": "Coahuila",
+      "description": ""
+    },    
+    {
+      "id": "MX-CHH",
+      "image": "",
+      "name": "Chihuahua",
+      "description": ""
+    },    
+    {
+      "id": "MX-CHP",
+      "image": "",
+      "name": "Chiapas",
+      "description": ""
+    },    
+    {
+      "id": "MX-CAM",
+      "image": "",
+      "name": "Campeche",
+      "description": ""
+    },    
+    {
+      "id": "MX-BCS",
+      "image": "",
+      "name": "Baja California Sur",
+      "description": ""
+    },    
+    {
+      "id": "MX-BCN",
+      "image": "",
+      "name": "Baja California Norte",
+      "description": ""
+    },    
+    {
+      "id": "MX-AGU",
+      "image": "",
+      "name": "Aguascalientes",
+      "description": ""
+    }
+  ]
+}
