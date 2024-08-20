@@ -1,11 +1,19 @@
 const d = document;
 let estadoItems = [];
 
-// Inicializa el mapa y establece la vista en el centro de México.
-document.addEventListener("DOMContentLoaded", async () => {
-  const estados = await loadEstados();
+const colorEstado = "#FFEDA0";
+const colorEstadoBorder = "#FFFFFF";
+const colorEstadoHover = "#666";
+const colorEstadoBorderHover = "#666";
+const colorEstadoSeleccionado = "#FF5733";
+const colorEstadoSeleccionadoBorder = "#333333";
+const zoomInicial = 5;
+const zoomMax = 8;
+const zoomMin = 5;
+let selectedLayer = null; // Variable para almacenar el estado seleccionado
 
-  const map = L.map("map").setView([23.6345, -102.5528], 5);
+document.addEventListener("DOMContentLoaded", async () => {
+  const map = L.map("map").setView([23.6345, -102.5528], zoomInicial);
 
   // Establece los límites de visualización en el área de México
   const southWest = L.latLng(14.559, -118.144);
@@ -14,49 +22,76 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Establece los límites para el zoom y el desplazamiento
   map.setMaxBounds(bounds);
-  map.setMinZoom(5);
-  map.setMaxZoom(10);
+  map.setMinZoom(zoomMin);
+  map.setMaxZoom(zoomMax);
 
   map.on("drag", () => {
     map.panInsideBounds(bounds, { animate: false });
   });
 
   // Funciones de estilo y eventos
-  function style(feature) {
+  function style() {
     return {
-      fillColor: "#FFEDA0",
+      fillColor: colorEstado,
       weight: 2,
       opacity: 1,
-      color: "white",
+      color: colorEstadoBorder,
       dashArray: "1",
       fillOpacity: 0.7,
     };
   }
 
   function highlightFeature(e) {
+    if (selectedLayer === e.target) return;
+
     const layer = e.target;
 
     layer.setStyle({
-      weight: 5,
-      color: "#E31A1C",
+      weight: 2,
+      color: colorEstadoBorderHover,
+      fillColor: colorEstadoHover,
       dashArray: "",
-      fillOpacity: 0.7,
+    });
+
+    selectedLayer?.setStyle({
+      color: colorEstadoSeleccionadoBorder,
+      fillColor: colorEstadoSeleccionado,
     });
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
       layer.bringToFront();
+      selectedLayer?.bringToFront();
     }
   }
 
   function resetHighlight(e) {
-    geojson.resetStyle(e.target);
+    if (selectedLayer !== e.target) {
+      geojson.resetStyle(e.target);
+    }
   }
 
-  function onEachFeature(feature, layer) {
+  async function onEachFeature(feature, layer) {
     layer.on({
       mouseover: highlightFeature,
       mouseout: resetHighlight,
       click: async (e) => {
+        if (selectedLayer && selectedLayer !== e.target) {
+          selectedLayer.setStyle({
+            fillColor: colorEstado,
+            color: colorEstadoBorder,
+          });
+        }
+
+        // Actualiza la referencia al estado seleccionado
+        selectedLayer = e.target;
+
+        // Cambia el color del estado seleccionado
+        selectedLayer.setStyle({
+          fillColor: colorEstadoSeleccionado,
+          color: colorEstadoSeleccionadoBorder,
+          weight: 3,
+        });
+
         const data = await loadEstado(feature.properties.id);
         estadoItems = data.items;
         buildDataEstado(data, feature.properties.name);
@@ -73,12 +108,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 const loadSetup = async () => {
   const response = await fetch("/data/estadosSetupLeaflet.json");
-  const data = await response.json();
-  return data;
-};
-
-const loadEstados = async () => {
-  const response = await fetch("/data/estados.json");
   const data = await response.json();
   return data;
 };
@@ -126,8 +155,9 @@ const buildDataEstado = (data, estadoNombre) => {
 };
 
 const openModal = (id) => {
-  const item = estadoItems.find((item) => item.id === id);
   d.querySelector(".modal")?.remove();
+  const item = estadoItems.find((item) => item.id === id);
+  if (!item) return;
   const { title, image, description } = item;
   const result = `
    <div class="modal dialog">
